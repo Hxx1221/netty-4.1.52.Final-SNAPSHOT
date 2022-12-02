@@ -101,6 +101,7 @@ public class FastThreadLocalTest {
     @Test
     public void testMultipleSetRemove() throws Exception {
         final FastThreadLocal<String> threadLocal = new FastThreadLocal<String>();
+        threadLocal.get();
         final Runnable runnable = new Runnable() {
             @Override
             public void run() {

@@ -108,6 +108,7 @@ public final class InternalThreadLocalMap extends UnpaddedInternalThreadLocalMap
     }
 
     public static int nextVariableIndex() {
+        //自增
         int index = nextIndex.getAndIncrement();
         if (index < 0) {
             nextIndex.decrementAndGet();
