@@ -75,9 +75,6 @@ public final class ChannelOutboundBuffer {
 
 
 
-
-
-
     /**
      * 1. unflushedEntry != null && flushedEntry == null，此时出站缓冲区 处于 数据入站阶段
      * 2. unflushedEntry == null && flushedEntry != null，此时出站缓冲区 处于 数据出站阶段，调用了addFlush 方法之后，会将flushedEntry 指向 原
@@ -215,9 +212,12 @@ public final class ChannelOutboundBuffer {
             }
             do {
                 flushed ++;
+                //判断当前entry是否在flush前被取消，通过entry绑定的promise取消
                 if (!entry.promise.setUncancellable()) {
                     // Was cancelled so make sure we free up memory and notify about the freed bytes
+                    //取消当前entry，返回值为当前entry的pendingsize
                     int pending = entry.cancel();
+                    //和incrementPendingOutboundBytes类似，将总容量减去当前entry的这一部分
                     decrementPendingOutboundBytes(pending, false, true);
                 }
                 entry = entry.next;

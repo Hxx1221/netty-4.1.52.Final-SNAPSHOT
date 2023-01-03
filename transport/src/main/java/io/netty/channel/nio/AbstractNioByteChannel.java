@@ -184,7 +184,7 @@ public abstract class AbstractNioByteChannel extends AbstractNioChannel {
                     // 更新缓存区预测分配器 读取的消息数量。
                     allocHandle.incMessagesRead(1);
                     readPending = false;
-                    // 向客户端pipeline 发起 channelRead 事件，该pipeline 实现了 channelRead 的handler 就可以 进行业务处理。
+                    // 向客户端pipeline 发起 channelRead 事件，该pipeline 实现了 channelRead 的handler 就可以 进行业务处理。B7BARaHE
                     pipeline.fireChannelRead(byteBuf);
                     byteBuf = null;
 

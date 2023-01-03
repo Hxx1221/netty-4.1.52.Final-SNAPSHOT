@@ -16,11 +16,7 @@
 package io.netty.example.echo;
 
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelOption;
-import io.netty.channel.ChannelPipeline;
-import io.netty.channel.EventLoopGroup;
+import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
@@ -39,6 +35,8 @@ public final class EchoServer {
     static final int PORT = Integer.parseInt(System.getProperty("port", "8007"));
 
     public static void main(String[] args) throws Exception {
+
+
         // Configure SSL.
         final SslContext sslCtx;
         if (SSL) {

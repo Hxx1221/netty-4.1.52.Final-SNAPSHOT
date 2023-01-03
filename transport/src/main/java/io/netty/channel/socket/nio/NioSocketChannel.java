@@ -419,10 +419,12 @@ public class NioSocketChannel extends AbstractNioByteChannel implements io.netty
             // Always us nioBuffers() to workaround data-corruption.
             // See https://github.com/netty/netty/issues/2761
             switch (nioBufferCnt) {
+                //可能是写缓冲区没有数据
                 case 0:
                     // We have something else beside ByteBuffers to write so fallback to normal writes.
                     writeSpinCount -= doWrite0(in);
                     break;
+                //一般都会到这，业务一般都是使用writeAndFlush()进行写数据的，所以添加一个Entry就会被刷新
                 case 1: {
                     // Only one ByteBuf so use non-gathering write
                     // Zero length buffers are not added to nioBuffers by ChannelOutboundBuffer, so there is no need

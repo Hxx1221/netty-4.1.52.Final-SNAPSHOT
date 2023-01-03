@@ -24,6 +24,7 @@ public interface ChannelInboundInvoker {
      * called of the next  {@link ChannelInboundHandler} contained in the  {@link ChannelPipeline} of the
      * {@link Channel}.
      */
+//    当channel注册到selector时，触发pipeline的fireChannelRegistered方法。
     ChannelInboundInvoker fireChannelRegistered();
 
     /**
@@ -42,6 +43,7 @@ public interface ChannelInboundInvoker {
      * called of the next  {@link ChannelInboundHandler} contained in the  {@link ChannelPipeline} of the
      * {@link Channel}.
      */
+//    当channel的socket绑定完成时，触发pipeline的fireChannelActive方法
     ChannelInboundInvoker fireChannelActive();
 
     /**
@@ -78,12 +80,14 @@ public interface ChannelInboundInvoker {
      * method  called of the next {@link ChannelInboundHandler} contained in the  {@link ChannelPipeline} of the
      * {@link Channel}.
      */
+//    当有客户端请求时，触发pipeline的fireChannelRead方法。
     ChannelInboundInvoker fireChannelRead(Object msg);
 
     /**
      * Triggers an {@link ChannelInboundHandler#channelReadComplete(ChannelHandlerContext)}
      * event to the next {@link ChannelInboundHandler} in the {@link ChannelPipeline}.
      */
+//    当本次客户端请求，pipeline执行完fireChannelRead，触发pipeline的fireChannelReadComplete方法。
     ChannelInboundInvoker fireChannelReadComplete();
 
     /**

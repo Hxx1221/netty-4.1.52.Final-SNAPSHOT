@@ -18,8 +18,10 @@ package io.netty.channel;
 import io.netty.buffer.ByteBufAllocator;
 import io.netty.channel.socket.ChannelOutputShutdownEvent;
 import io.netty.channel.socket.ChannelOutputShutdownException;
+import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.util.DefaultAttributeMap;
 import io.netty.util.ReferenceCountUtil;
+import io.netty.util.concurrent.FastThreadLocal;
 import io.netty.util.internal.ObjectUtil;
 import io.netty.util.internal.PlatformDependent;
 import io.netty.util.internal.UnstableApi;
@@ -417,10 +419,12 @@ public abstract class AbstractChannel extends DefaultAttributeMap implements Cha
         return pipeline.voidPromise();
     }
 
+
     /**
      * {@link Unsafe} implementation which sub-classes must extend and use.
      */
     protected abstract class AbstractUnsafe implements Unsafe {
+
 
         // 每个Channel都有一个属于它自己的 unsafe，每个 unsafe 都有一个属于 它自己的 outboundBuffer。
         private volatile ChannelOutboundBuffer outboundBuffer = new ChannelOutboundBuffer(AbstractChannel.this);
